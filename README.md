@@ -1,7 +1,5 @@
 # My Portfolio built with Astro:
 
-[abdulhamitcelik.com](https://www.abdulhamitcelik.com)
-
 ## To use this template:
 
 Install dependecies and run the server
