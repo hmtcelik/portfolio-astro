@@ -1,0 +1,47 @@
+---
+import ProjectCard from "@/components/ProjectCard.astro";
+import Section from "@/components/Section.astro";
+import Socials from "@/components/Socials.astro";
+import Layout from "@/layouts/Layout.astro";
+
+import { getCollection } from "astro:content";
+
+const featuredProjects = await getCollection("projects", ({ data }) => {
+  return data.published;
+});
+
+const orderedProjects = [...featuredProjects].sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Layout
+  title="Abdulhamit Celik"
+  description="Software developer who likes exploring new technologies and building cool stuff."
+>
+  <div class="mt-2"></div>
+  <Socials />
+  <div class="mt-6 space-y-6">
+    <img
+      src="/me.webp"
+      alt="Abdulhamit Celik"
+      class="w-24 h-24 rounded-full sm:w-32 sm:h-32"
+    />
+    <h1 class="text-3xl font-bold sm:text-4xl md:text-5xl">
+      Hi, I&apos;m Abdulhamit 👋
+    </h1>
+  </div>
+
+  <div class="mt-10 mb-12">
+    <p class="mb-5 text-neutral-300">
+      A software developer who likes exploring new technologies and building
+      cool stuff. Also a fan of open source projects.
+    </p>
+  </div>
+
+  <Section title="Projects">
+    <div class="flex flex-col gap-5">
+      {orderedProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </Section>
+</Layout>

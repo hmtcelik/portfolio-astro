@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import Javascript from "@/components/icons/Javascript.astro";
+import Typescript from "@/components/icons/Typescript.astro";
+import Supabase from "@/components/icons/Supabase.astro";
+import Next from "@/components/icons/Next.astro";
+import React from "@/components/icons/React.astro";
+import Tailwind from "@/components/icons/Tailwind.astro";
+import Python from "@/components/icons/Python.astro";
+import Django from "@/components/icons/Django.astro";
+import Docker from "@/components/icons/Docker.astro";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const icons = {
+  Python,
+  Django,
+  Docker,
+  Next,
+  Typescript,
+  React,
+  Tailwind,
+  Javascript,
+  Supabase,
+};
+---
+
+<a
+  href={project.data.url}
+  target="_blank"
+  class="flex flex-col justify-between rounded-xl border border-neutral-800 bg-neutral-900/80 p-6 sm:p-8 shadow transition-all duration-300 hover:border-neutral-600 hover:shadow-lg"
+>
+  <div class="mb-6">
+    <p class="mb-4 text-base font-semibold uppercase text-neutral-200">
+      {project.data.title}
+    </p>
+    <p class="text-sm text-neutral-400">{project.data.description}</p>
+  </div>
+
+  <div class="flex gap-4 flex-row">
+    {
+      // @ts-ignore
+      project.data.tags.map((tag) => {
+        // @ts-ignore
+        const Component = icons[tag];
+
+        return <Component className="w-5 h-5" />;
+      })
+    }
+  </div>
+</a>

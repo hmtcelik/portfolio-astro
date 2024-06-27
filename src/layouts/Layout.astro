@@ -1,0 +1,35 @@
+---
+import "@fontsource/inter";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en" class="overscroll-y-none overflow-y-scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body
+    class="relative min-h-screen min-w-full text-base bg-neutral-900 text-neutral-300 md:text-lg"
+  >
+    <div class="absolute top-0 left-0 z-50 w-full px-4 pt-2 pb-5 md:py-8">
+      <div class="mx-auto">
+        <main class="mx-auto max-w-screen-sm">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

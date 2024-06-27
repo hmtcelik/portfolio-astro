@@ -1,0 +1,28 @@
+---
+import Github from "@/components/icons/Github.astro";
+import Linkedin from "@/components/icons/Linkedin.astro";
+import Mail from "@/components/icons/Mail.astro";
+
+const menuItems = [
+  { icon: Github, link: "https://www.github.com/hmtcelik" },
+  { icon: Linkedin, link: "https://www.linkedin.com/in/abdulhamitcelik" },
+  { icon: Mail, link: "mailto:abhmtcelik@gmail.com" },
+];
+---
+
+<ul class="flex justify-end items-center gap-4">
+  {
+    menuItems.map((item) => (
+      <li>
+        <a
+          class="hover:text-neutral-300"
+          href={item.link}
+          rel="prefetch"
+          target="_blank"
+        >
+          <item.icon className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
