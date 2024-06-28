@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Navbar from "@/components/nav/Navbar.astro";
+
+const posts = await getCollection("posts");
+---
+
+<Layout
+  title="Blog - Abdulhamit Celik"
+  description="A collection of blog posts about software development, open source, and more."
+>
+  <Navbar />
+
+  <div class="space-y-4">
+    {
+      posts.map(async (post) => {
+        const { remarkPluginFrontmatter } = await post.render();
+        return (
+          // on hover a tag, the image zooms in
+          <div>
+            <a href={`/blog/${post.slug}`} class="rounded-xl group">
+              <div class="flex flex-col gap-4 p-6 sm:p-8 hover:border-neutral-700 hover:shadow-lg border border-neutral-800 rounded-xl transition-all duration-300">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-48 object-cover rounded-xl"
+                />
+                <div class="space-y-2">
+                  <p class="text-2xl sm:text-3xl text-white font-bold">
+                    {post.data.title}
+                  </p>
+                  <div class="flex justify-start items-center gap-2">
+                    <p class="text-neutral-400 text-xs">
+                      {post.data.publishDate.toLocaleString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                    <span class="text-neutral-400 text-xs">•</span>
+                    <p class="text-neutral-400 text-xs">
+                      {remarkPluginFrontmatter?.minutesRead
+                        ? remarkPluginFrontmatter.minutesRead
+                        : "999 min read"}
+                    </p>
+                  </div>
+                  <p class="text-neutral-300 text-sm sm:text-base leading-relaxed">
+                    {post.data.excerpt}
+                  </p>
+                  <div class="flex justify-start items-center gap-1 text-blue-500 group-hover:underline text-sm">
+                    <p class="text-sm">Read more</p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      class="w-4 h-4 stroke-2 stroke-current"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 6l6 6l-6 6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        );
+      })
+    }
+  </div>
+</Layout>

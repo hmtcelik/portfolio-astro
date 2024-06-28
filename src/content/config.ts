@@ -24,6 +24,24 @@ const projectsCollection = defineCollection({
   }),
 });
 
+const postCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    publishDate: z.date(),
+    updateDate: z.date().optional(),
+    draft: z.boolean().optional(),
+
+    title: z.string(),
+    excerpt: z.string(),
+    image: z.string().optional(),
+
+    category: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    author: z.string().optional(),
+  }),
+});
+
 export const collections = {
   projects: projectsCollection,
+  posts: postCollection,
 };

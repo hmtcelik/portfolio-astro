@@ -1,7 +1,7 @@
 ---
+import Navbar from "@/components/nav/Navbar.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Section from "@/components/Section.astro";
-import Socials from "@/components/Socials.astro";
 import Layout from "@/layouts/Layout.astro";
 
 import { getCollection } from "astro:content";
@@ -19,8 +19,7 @@ const orderedProjects = [...featuredProjects].sort(
   title="Abdulhamit Celik"
   description="Software developer who likes exploring new technologies and building cool stuff."
 >
-  <div class="mt-2"></div>
-  <Socials />
+  <Navbar />
   <div class="mt-6 space-y-6">
     <img
       src="/me.webp"

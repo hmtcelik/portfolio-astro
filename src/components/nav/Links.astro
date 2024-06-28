@@ -1,0 +1,20 @@
+---
+const Items = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+];
+---
+
+<nav class="flex justify-between items-center">
+  <ul class="flex gap-4">
+    {
+      Items.map((item) => (
+        <li>
+          <a href={item.href} class="hover:text-neutral-300">
+            {item.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

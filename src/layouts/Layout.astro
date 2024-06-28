@@ -1,5 +1,11 @@
 ---
 import "@fontsource/inter";
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/900.css";
 
 interface Props {
   title: string;
@@ -15,11 +21,24 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <title>{title}</title>
+
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-9RY8HFM83D"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-9RY8HFM83D");
+    </script>
   </head>
   <body
     class="relative min-h-screen min-w-full text-base bg-neutral-900 text-neutral-300 md:text-lg"
