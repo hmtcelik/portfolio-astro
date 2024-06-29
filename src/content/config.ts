@@ -1,3 +1,4 @@
+import { Categories } from "@/utils/enums";
 import { defineCollection, z } from "astro:content";
 
 const projectsCollection = defineCollection({
@@ -35,7 +36,7 @@ const postCollection = defineCollection({
     excerpt: z.string(),
     image: z.string().optional(),
 
-    category: z.string().optional(),
+    category: z.enum(Categories).optional(),
     tags: z.array(z.string()).optional(),
     author: z.string().optional(),
   }),

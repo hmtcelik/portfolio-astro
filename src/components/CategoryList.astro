@@ -1,0 +1,45 @@
+---
+import { Categories } from "@/utils/enums";
+
+interface Props {
+  selectedCategory: string | undefined;
+}
+
+const { selectedCategory } = Astro.props;
+---
+
+<div class="mb-10 space-y-2">
+  <!-- <h4 class="text-base font-semibold text-neutral-100">Category:</h4> -->
+
+  <div class="flex justify-start items-center gap-2">
+    {
+      selectedCategory && (
+        <a href={"/blog"}>
+          <div class="inline-flex items-center gap-x-1.5 py-2 px-3 rounded-full text-xs sm:text-sm font-medium bg-white/10 text-white cursor-pointer hover:bg-white/20">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="stroke-2 w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-current"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M18 6l-12 12" />
+              <path d="M6 6l12 12" />
+            </svg>
+            <span>{selectedCategory}</span>
+          </div>
+        </a>
+      )
+    }
+    {
+      Categories.filter((category) => category !== selectedCategory).map(
+        (category) => (
+          <a href={`/blog/category/${category.toLowerCase()}`}>
+            <div class="inline-flex items-center gap-x-1.5 py-2 px-3 rounded-full text-xs sm:text-sm font-medium bg-white/10 text-white cursor-pointer hover:bg-white/20">
+              <span>{category}</span>
+            </div>
+          </a>
+        )
+      )
+    }
+  </div>
+</div>

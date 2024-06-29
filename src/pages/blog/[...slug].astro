@@ -20,7 +20,12 @@ const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await post.render();
 ---
 
-<Layout title={post.data.title} description={post.data.excerpt}>
+<Layout
+  title={`
+  ${post.data.title} - ${post.data.author}
+`}
+  description={post.data.excerpt}
+>
   <div class="p-2">
     <div class="flex justify-start items-center">
       <a href="/blog/">
