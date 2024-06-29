@@ -23,6 +23,7 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "astro": "^4.4.4",
+    "astro-seo": "^0.8.4",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.6",
     "mdast-util-to-string": "^4.0.0",

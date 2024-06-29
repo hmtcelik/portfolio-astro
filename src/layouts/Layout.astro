@@ -7,16 +7,41 @@ import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
 
+import { SEO } from "astro-seo";
+
 interface Props {
   title: string;
   description: string;
+  image: string | undefined;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <html lang="en" class="overscroll-y-none overflow-y-scroll">
   <head>
+    <SEO
+      title={title}
+      description={description}
+      openGraph={{
+        basic: {
+          title,
+          type: "website",
+          image: image ? image : "/me.webp",
+        },
+      }}
+      twitter={{
+        creator: "@abdulhamitcelk",
+      }}
+      extend={{
+        link: [
+          {
+            rel: "icon",
+            href: "/favicon.ico",
+          },
+        ],
+      }}
+    />
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
