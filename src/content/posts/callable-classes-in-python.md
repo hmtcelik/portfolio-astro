@@ -1,5 +1,5 @@
 ---
-publishDate: 2024-06-29T00:00:00Z
+publishDate: 2024-06-29T02:00:00Z
 title: Callable Classes in Python
 excerpt: In this article, I will explain how to create callable classes in Python. You can call an instance of a class like a function. It is really useful when you want to create a class that behaves like a function.
 image: /images/blog/programming/callable-python.jpg

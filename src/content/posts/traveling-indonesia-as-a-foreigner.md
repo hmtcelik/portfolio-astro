@@ -1,5 +1,5 @@
 ---
-publishDate: 2024-06-29T00:00:00Z
+publishDate: 2024-06-29T01:00:00Z
 title: Traveling Indonesia as a Foreigner
 excerpt: My trip to Indonesia as a foreigner. I visited Jakarta, Depok, Bandung, Purwokerto, Banyumas, Yogyakarta and Semarang. I am explaining my experiences in Indonesia. Highly recommended.
 image: /images/blog/travel/indonesia-banyumas-1.jpeg
