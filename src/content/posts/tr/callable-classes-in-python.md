@@ -8,7 +8,7 @@ category: Programming
 tags: []
 ---
 
-## What is Callable Class?
+## Çağrılabilir Sınıf Nedir?
 
 Python'da çağrılabilir olan her şey çağrılabilir olarak adlandırılır. Örneğin, fonksiyonlar, metotlar, sınıflar ve nesneler çağrılabilir olarak adlandırılır. Onları bir fonksiyon gibi çağırabilirsiniz. Bu makalede, Python'da çağrılabilir sınıflar nasıl oluşturulur açıklayacağım. Bir sınıfın örneğini bir fonksiyon gibi çağırabilirsiniz. Bir sınıf oluşturmak istediğinizde oldukça yararlıdır.
 
