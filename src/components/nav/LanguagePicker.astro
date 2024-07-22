@@ -14,7 +14,7 @@ const currentLang = getLangFromUrl(Astro.url);
   >
     {
       LanguagesDropdown.map(({ value, label, flag }) => (
-        <option value={`/${value}/${path}`} selected={value === currentLang}>
+        <option value={`/${value}/${path}`} selected={value === currentLang} class="bg-neutral-800 text-white">
           {flag}
           {label}
         </option>
