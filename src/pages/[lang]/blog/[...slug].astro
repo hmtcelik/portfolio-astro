@@ -1,0 +1,111 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Prose from "@/components/Prose.astro";
+import { getCollection } from "astro:content";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import LanguagePicker from "@/components/nav/LanguagePicker.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("posts");
+
+  const paths = pages.map((page) => {
+    const [lang, ...slug] = page.slug.split("/");
+    return { params: { lang, slug: slug.join("/") || undefined }, props: page };
+  });
+
+  return paths;
+}
+
+const { lang } = Astro.params;
+const post = Astro.props;
+const formattedDate = post.data.publishDate.toLocaleString(lang, {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+const { Content, remarkPluginFrontmatter } = await post.render();
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+---
+
+<Layout
+  title={`
+  ${post.data.title} - ${post.data.author}
+`}
+  description={post.data.excerpt}
+  image={post.data.image}
+>
+  <div class="p-2">
+    <div class="flex justify-between items-center">
+      <a href={`/${lang}/blog`}>
+        <div
+          class="flex justify-start items-center gap-1 text-blue-500 hover:underline text-sm"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="w-4 h-4 stroke-2 stroke-current"
+            ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+              d="M15 6l-6 6l6 6"></path></svg
+          >
+          <span>{t("post.backToBlog")}</span>
+        </div></a
+      >
+      <LanguagePicker />
+    </div>
+
+    <div class="mt-8 sm:mt-10 space-y-2">
+      <p class="text-neutral-200 text-sm">
+        {post.data.category && t(`categories.${post.data.category}`)}
+      </p>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl text-white font-bold">
+        {post.data.title}
+      </h1>
+    </div>
+
+    <div class="flex items-center justify-start mt-6">
+      <img
+        src={"/me.webp"}
+        alt={post.data.author}
+        class="w-12 h-12 rounded-full"
+      />
+      <div class="ml-3 space-y-0.5">
+        <p class="text-neutral-200 text-sm">{post.data.author}</p>
+        <div class="flex justify-start items-center gap-2">
+          <p class="text-neutral-400 text-xs">
+            {formattedDate}
+          </p>
+          <span class="text-neutral-400 text-xs">•</span>
+          <p class="text-neutral-400 text-xs">
+            {
+              (remarkPluginFrontmatter?.minutesRead
+                ? remarkPluginFrontmatter.minutesRead
+                : "10 min read"
+              ).replace(" min read", ` ${t("post.minRead")}`)
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      {
+        post.data.image && (
+          <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full h-60 sm:h-96 object-cover rounded-lg"
+          />
+        )
+      }
+    </div>
+
+    <div class="mt-10 mb-12">
+      <Prose>
+        <Content />
+      </Prose>
+    </div>
+  </div>
+</Layout>

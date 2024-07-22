@@ -1,35 +1,31 @@
 ---
-import BlogList from "@/components/BlogList.astro";
-import Navbar from "@/components/nav/Navbar.astro";
 import Layout from "@/layouts/Layout.astro";
 import { Categories } from "@/utils/enums";
-import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection("posts");
+  const paths = Categories.flatMap((category) => {
+    return {
+      params: {
+        category: category.toLowerCase(),
+      },
+      props: {
+        category,
+      },
+    };
+  });
 
-  return Categories.map((category) => ({
-    params: {
-      category: category.toLowerCase(),
-    },
-    props: {
-      category,
-      posts: allPosts,
-    },
-  }));
+  return paths;
 }
 
-const { category } = Astro.props;
-
-const filteredPosts = Astro.props.posts.filter(
-  (post) => post.data.category === category
-);
+const { category } = Astro.params;
 ---
 
 <Layout
   title={`${category} Blog - Abdulhamit Celik`}
   description={`A collection of blog posts about ${category}.`}
 >
-  <Navbar />
-  <BlogList posts={filteredPosts} selectedCategory={category} />
+  <meta
+    http-equiv="refresh"
+    content=`0;url=/en/blog/category/${category || ""}`
+  />
 </Layout>

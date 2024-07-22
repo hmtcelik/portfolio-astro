@@ -21,10 +21,9 @@ const orderedProjects = [...featuredProjects]
 
 <Layout
   title="Abdulhamit Celik"
-  description="Software developer who likes exploring new technologies and building cool stuff."
+  description="Yeni teknolojileri keşfetmeyi ve harika şeyler inşa etmeyi seven bir yazilim geliştirici."
 >
   <Navbar />
-  <meta http-equiv="refresh" content="0;url=/en/" />
   <div class="mt-6 space-y-6">
     <img
       src="/me.webp"
@@ -32,14 +31,14 @@ const orderedProjects = [...featuredProjects]
       class="w-24 h-24 rounded-full sm:w-32 sm:h-32"
     />
     <h1 class="text-3xl font-bold sm:text-4xl md:text-5xl">
-      Hi, I&apos;m Abdulhamit 👋
+      Selam, Ben Abdulhamit 👋
     </h1>
   </div>
 
   <div class="mt-10 mb-6">
     <p class="mb-5 text-neutral-300">
-      A software developer who likes exploring new technologies and building
-      cool stuff. Also a fan of open source projects.
+      Yeni teknolojileri keşfetmeyi ve harika şeyler inşa etmeyi seven bir
+      yazılım geliştirici. Ayrıca açık kaynak projelerinin hayranı.
     </p>
   </div>
 
@@ -47,7 +46,7 @@ const orderedProjects = [...featuredProjects]
     <Socials />
   </div>
 
-  <Section title="Projects">
+  <Section title="Projeler">
     <div class="flex flex-col gap-5">
       {orderedProjects.map((project) => <ProjectCard project={project} />)}
     </div>

@@ -1,15 +1,20 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import CategoryList from "./CategoryList.astro";
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import type { Categories } from "@/utils/enums";
 
 // props
 interface Props {
   posts: CollectionEntry<"posts">[];
-  selectedCategory?: string;
+  selectedCategory?: (typeof Categories)[number];
 }
 
 // destructure props
 const { posts, selectedCategory } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="mb-24">
@@ -22,7 +27,10 @@ const { posts, selectedCategory } = Astro.props;
         return (
           // on hover a tag, the image zooms in
           <div>
-            <a href={`/blog/${post.slug}`} class="rounded-xl group">
+            <a
+              href={`/${lang}/blog/${post.slug.replace(`${lang}/`, "")}`}
+              class="rounded-xl group"
+            >
               <div class="flex flex-col gap-4 p-6 sm:p-8 hover:border-neutral-700 hover:shadow-lg border border-neutral-800 rounded-xl transition-all duration-300">
                 <img
                   src={post.data.image}
@@ -31,14 +39,17 @@ const { posts, selectedCategory } = Astro.props;
                 />
                 <div class="space-y-2">
                   <div class="space-y-1">
-                    <p class="text-neutral-300 text-xs">{post.data.category}</p>
+                    <p class="text-neutral-300 text-xs">
+                      {post.data.category &&
+                        t(`categories.${post.data.category}`)}
+                    </p>
                     <p class="text-2xl sm:text-3xl text-white font-bold">
                       {post.data.title}
                     </p>
                   </div>
                   <div class="flex justify-start items-center gap-2">
                     <p class="text-neutral-400 text-xs">
-                      {post.data.publishDate.toLocaleString("en-US", {
+                      {post.data.publishDate.toLocaleString(lang, {
                         month: "long",
                         day: "numeric",
                         year: "numeric",
@@ -46,16 +57,17 @@ const { posts, selectedCategory } = Astro.props;
                     </p>
                     <span class="text-neutral-400 text-xs">•</span>
                     <p class="text-neutral-400 text-xs">
-                      {remarkPluginFrontmatter?.minutesRead
+                      {(remarkPluginFrontmatter?.minutesRead
                         ? remarkPluginFrontmatter.minutesRead
-                        : "999 min read"}
+                        : "10 min read"
+                      ).replace(" min read", ` ${t("post.minRead")}`)}
                     </p>
                   </div>
                   <p class="text-neutral-300 text-sm sm:text-base leading-relaxed">
                     {post.data.excerpt}
                   </p>
                   <div class="flex justify-start items-center gap-1 text-blue-500 group-hover:underline text-sm">
-                    <p class="text-sm">Read more</p>
+                    <p class="text-sm">{t("post.readMore")}</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"

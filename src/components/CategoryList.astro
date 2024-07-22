@@ -1,11 +1,15 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
 import { Categories } from "@/utils/enums";
 
 interface Props {
-  selectedCategory: string | undefined;
+  selectedCategory: (typeof Categories)[number] | undefined;
 }
 
 const { selectedCategory } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="mb-10 space-y-2">
@@ -14,7 +18,7 @@ const { selectedCategory } = Astro.props;
   <div class="flex justify-start items-center gap-2">
     {
       selectedCategory && (
-        <a href={"/blog"}>
+        <a href={`/${lang}/blog`}>
           <div class="inline-flex items-center gap-x-1.5 py-2 px-3 rounded-full text-xs sm:text-sm font-medium bg-white/10 text-white cursor-pointer hover:bg-white/20">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +29,7 @@ const { selectedCategory } = Astro.props;
               <path d="M18 6l-12 12" />
               <path d="M6 6l12 12" />
             </svg>
-            <span>{selectedCategory}</span>
+            <span>{t(`categories.${selectedCategory}`)}</span>
           </div>
         </a>
       )
@@ -33,9 +37,9 @@ const { selectedCategory } = Astro.props;
     {
       Categories.filter((category) => category !== selectedCategory).map(
         (category) => (
-          <a href={`/blog/category/${category.toLowerCase()}`}>
+          <a href={`/${lang}/blog/category/${category.toLowerCase()}`}>
             <div class="inline-flex items-center gap-x-1.5 py-2 px-3 rounded-full text-xs sm:text-sm font-medium bg-white/10 text-white cursor-pointer hover:bg-white/20">
-              <span>{category}</span>
+              <span>{t(`categories.${category}`)}</span>
             </div>
           </a>
         )

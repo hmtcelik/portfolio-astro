@@ -7,6 +7,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource/inter/800.css";
 import "@fontsource/inter/900.css";
 
+import { getLangFromUrl } from "../i18n/utils";
 import { SEO } from "astro-seo";
 
 interface Props {
@@ -16,9 +17,11 @@ interface Props {
 }
 
 const { title, description, image } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
 ---
 
-<html lang="en" class="overscroll-y-none overflow-y-scroll">
+<html lang={lang} class="overscroll-y-none overflow-y-scroll">
   <head>
     <SEO
       title={title}

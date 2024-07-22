@@ -1,0 +1,48 @@
+---
+import BlogList from "@/components/BlogList.astro";
+import Navbar from "@/components/nav/Navbar.astro";
+import { Languages } from "@/i18n/ui";
+import Layout from "@/layouts/Layout.astro";
+import { Categories } from "@/utils/enums";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const paths = Categories.flatMap((category) => {
+    return Object.keys(Languages).map((lang) => {
+      return {
+        params: {
+          lang,
+          category: category.toLowerCase(),
+        },
+        props: {
+          category,
+          lang,
+        },
+      };
+    });
+  });
+
+  return paths;
+}
+
+const { category, lang } = Astro.props;
+
+const allPosts = await getCollection("posts");
+const filteredPosts = allPosts
+  .filter((post) => post.data.category === category)
+  .filter((post) => (lang ? post.slug.startsWith(lang) : true))
+  .sort((a, b) => {
+    return (
+      new Date(b.data.publishDate).valueOf() -
+      new Date(a.data.publishDate).valueOf()
+    );
+  });
+---
+
+<Layout
+  title={`${category} Blog - Abdulhamit Celik`}
+  description={`A collection of blog posts about ${category}.`}
+>
+  <Navbar />
+  <BlogList posts={filteredPosts} selectedCategory={category} />
+</Layout>

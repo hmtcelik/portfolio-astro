@@ -1,7 +1,12 @@
 ---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const Items = [
-  { name: "Home", href: "/" },
-  { name: "Blog", href: "/blog" },
+  { name: t("nav.home"), href: `/${lang}` },
+  { name: t("nav.blog"), href: `/${lang}/blog` },
 ];
 ---
 

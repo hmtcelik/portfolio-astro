@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Navbar from "@/components/nav/Navbar.astro";
+import BlogList from "@/components/BlogList.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("posts");
+
+  const paths = pages.map((page) => {
+    const [lang, ...slug] = page.slug.split("/");
+    return { params: { lang, slug: slug.join("/") || undefined }, props: page };
+  });
+
+  return paths;
+}
+
+const lang = Astro.params.lang;
+
+const posts = (await getCollection("posts"))
+  .filter((post) => (lang ? post.slug.startsWith(lang) : true))
+  .sort((a, b) => {
+    return (
+      new Date(b.data.publishDate).valueOf() -
+      new Date(a.data.publishDate).valueOf()
+    );
+  });
+---
+
+<Layout
+  title="Blog - Abdulhamit Celik"
+  description="A collection of blog posts about software development, open source, and more."
+>
+  <Navbar />
+  <BlogList posts={posts} />
+</Layout>
