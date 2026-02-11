@@ -3,18 +3,19 @@ import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import partytown from "@astrojs/partytown";
-
-import prefetch from "@astrojs/prefetch";
 import react from "@astrojs/react";
 
 import { remarkReadingTime } from "./src/utils/frontmatter";
 
 // https://astro.build/config
 export default defineConfig({
+  legacy: {
+    collections: true,
+  },
+  prefetch: true,
   integrations: [
     tailwind(),
     mdx(),
-    prefetch(),
     react(),
     sitemap(),
     partytown({
