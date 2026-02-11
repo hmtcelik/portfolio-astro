@@ -2,27 +2,52 @@
 import Github from "@/components/icons/Github.astro";
 import Linkedin from "@/components/icons/Linkedin.astro";
 import Mail from "@/components/icons/Mail.astro";
-
-const menuItems = [
-  { icon: Github, link: "https://www.github.com/hmtcelik" },
-  { icon: Linkedin, link: "https://www.linkedin.com/in/abdulhamitcelik" },
-  { icon: Mail, link: "mailto:abhmtcelik@gmail.com" },
-];
+import Youtube from "@/components/icons/Youtube.astro";
 ---
 
 <ul class="flex justify-start items-center gap-4">
-  {
-    menuItems.map((item) => (
-      <li>
-        <a
-          class="hover:text-neutral-300"
-          href={item.link}
-          rel="prefetch"
-          target="_blank"
-        >
-          <item.icon className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
-        </a>
-      </li>
-    ))
-  }
+  <li>
+    <a
+      class="hover:text-neutral-300"
+      href="https://www.github.com/hmtcelik"
+      rel="prefetch"
+      target="_blank"
+      aria-label="GitHub profile"
+    >
+      <Github className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
+    </a>
+  </li>
+  <li>
+    <a
+      class="hover:text-neutral-300"
+      href="https://www.linkedin.com/in/abdulhamitcelik"
+      rel="prefetch"
+      target="_blank"
+      aria-label="LinkedIn profile"
+    >
+      <Linkedin className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
+    </a>
+  </li>
+  <li>
+    <a
+      class="hover:text-neutral-300"
+      href="https://youtube.com/@hmtcelik"
+      rel="prefetch"
+      target="_blank"
+      aria-label="YouTube channel"
+    >
+      <Youtube className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
+    </a>
+  </li>
+  <li>
+    <a
+      class="hover:text-neutral-300"
+      href="mailto:abhmtcelik@gmail.com"
+      rel="prefetch"
+      target="_blank"
+      aria-label="Email"
+    >
+      <Mail className="w-6 h-6 sm:w-8 sm:h-8 hover:text-neutral-400" />
+    </a>
+  </li>
 </ul>

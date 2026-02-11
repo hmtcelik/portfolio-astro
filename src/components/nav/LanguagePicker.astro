@@ -5,10 +5,15 @@ import { getLangFromUrl } from "@/i18n/utils";
 const path = Astro.url.pathname.split("/").slice(2).join("/");
 
 const currentLang = getLangFromUrl(Astro.url);
+const labelByLang: Record<string, string> = { en: "Language", tr: "Dil" };
+const selectLabel = labelByLang[currentLang] ?? "Language";
 ---
 
 <div>
+  <label for="language-select" class="sr-only">{selectLabel}</label>
   <select
+    id="language-select"
+    aria-label={selectLabel}
     class="px-2 block w-full rounded-lg text-base bg-transparent focus:border-none disabled:opacity-50 disabled:pointer-events-none border-transparent text-white focus:ring-none focus:outline-none"
     onchange="location = this.value;"
   >

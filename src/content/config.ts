@@ -19,9 +19,27 @@ const projectsCollection = defineCollection({
         "Tailwind",
         "Javascript",
         "Supabase",
+        "Astro",
+        "Go",
+        "Fastapi",
       ])
       .array(),
     order: z.number(),
+  }),
+});
+
+const experienceCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    company: z.string(),
+    role: z.string(),
+    location: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    summary: z.string(),
+    bullets: z.array(z.string()).optional(),
+    order: z.number(),
+    url: z.string().optional(),
   }),
 });
 
@@ -44,5 +62,6 @@ const postCollection = defineCollection({
 
 export const collections = {
   projects: projectsCollection,
+  experience: experienceCollection,
   posts: postCollection,
 };

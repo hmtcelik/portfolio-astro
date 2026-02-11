@@ -10,6 +10,9 @@ import Tailwind from "@/components/icons/Tailwind.astro";
 import Python from "@/components/icons/Python.astro";
 import Django from "@/components/icons/Django.astro";
 import Docker from "@/components/icons/Docker.astro";
+import AstroLogo from "@/components/icons/AstroLogo.astro";
+import Go from "@/components/icons/Go.astro";
+import Fastapi from "@/components/icons/Fastapi.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -17,7 +20,7 @@ interface Props {
 
 const { project } = Astro.props;
 
-const icons = {
+const icons: Record<string, typeof Python> = {
   Python,
   Django,
   Docker,
@@ -27,6 +30,9 @@ const icons = {
   Tailwind,
   Javascript,
   Supabase,
+  Astro: AstroLogo,
+  Go,
+  Fastapi,
 };
 ---
 
@@ -44,12 +50,10 @@ const icons = {
 
   <div class="flex gap-4 flex-row">
     {
-      // @ts-ignore
-      project.data.tags.map((tag) => {
-        // @ts-ignore
-        const Component = icons[tag];
-
-        return <Component className="w-5 h-5" />;
+      project.data.tags.map((tag: string) => {
+        const Icon = icons[tag];
+        if (!Icon) return null;
+        return <Icon className="w-5 h-5" />;
       })
     }
   </div>

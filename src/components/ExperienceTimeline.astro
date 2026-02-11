@@ -1,0 +1,77 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  experiences: CollectionEntry<"experience">[];
+}
+
+const { experiences } = Astro.props;
+
+function formatDate(dateStr: string): string {
+  if (dateStr === "Present" || dateStr === "Şu an") return dateStr;
+  const [year, month] = dateStr.split("-");
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const m = month ? months[parseInt(month, 10) - 1] : "";
+  return m && year ? `${m} ${year}` : (year ?? dateStr);
+}
+---
+
+<section class="flex flex-col gap-5">
+  {
+    experiences.map((entry) => {
+      const cardClass =
+        "flex flex-col justify-between rounded-xl border border-neutral-800 bg-neutral-900/80 p-6 sm:p-8 shadow transition-all duration-300 hover:border-neutral-600 hover:shadow-lg";
+      const content = (
+        <>
+          <div class="mb-6">
+            <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 mb-4">
+              <p class="text-base font-semibold uppercase text-neutral-200">
+                {entry.data.role}
+              </p>
+              <span class="text-sm text-neutral-200 tabular-nums shrink-0">
+                {formatDate(entry.data.startDate)} –{" "}
+                {formatDate(entry.data.endDate)}
+              </span>
+            </div>
+            <p class="text-sm text-neutral-400 mb-0">
+              {entry.data.company} · {entry.data.location}
+            </p>
+          </div>
+          <p class="text-sm text-neutral-400">{entry.data.summary}</p>
+          {entry.data.bullets && entry.data.bullets.length > 0 && (
+            <ul class="mt-4 space-y-2 list-disc list-inside text-sm text-neutral-400">
+              {entry.data.bullets.map((bullet: string) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
+      return entry.data.url ? (
+        <a
+          href={entry.data.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={cardClass}
+        >
+          {content}
+        </a>
+      ) : (
+        <article class={cardClass}>{content}</article>
+      );
+    })
+  }
+</section>
